@@ -1,0 +1,27 @@
+/ {
+    zephyr,user {
+        N_STEP_ENABLE-gpios = <&gpio0 0 GPIO_ACTIVE_LOW>;
+        STEP_GENERATE-gpios = <&gpio0 1 0>;
+        MUX_A0-gpios = <&gpio0 2 0>;
+        MUX_A1-gpios = <&gpio0 3 0>;
+
+        TDC_ENABLE-gpios = <&gpio0 12 0>;
+        TDC_INT-gpios    = <&gpio0 11 0>;
+    };
+};
+
+&spi1 {
+        compatible = "nordic,nrf-spi";
+        status = "okay";
+        cs-gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
+        pinctrl-0 = <&spi1_default>;
+        pinctrl-1 = <&spi1_sleep>;
+        pinctrl-names = "default", "sleep";
+        gendev: gendev@0 {
+                compatible = "vnd,spi-device";
+                reg = <0>;
+                spi-max-frequency = <1600000>;
+                label = "GenDev";
+        };
+};
+
