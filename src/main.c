@@ -1,6 +1,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/spi.h>
+#include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
 #include <stdbool.h>
 
@@ -17,7 +18,7 @@ LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
 #define SPIOP      SPI_WORD_SET(8) | SPI_TRANSFER_MSB
 
-struct spi_dt_spec spispec = SPI_DT_SPEC_GET(DT_NODELABEL(gendev), SPIOP, 0);
+struct spi_dt_spec spispec = SPI_DT_SPEC_GET(DT_NODELABEL(mcp4922), SPIOP, 0);
 
 
 bool sensor_init(void)

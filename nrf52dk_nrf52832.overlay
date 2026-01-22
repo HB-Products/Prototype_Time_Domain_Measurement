@@ -11,17 +11,19 @@
 };
 
 &spi1 {
-        compatible = "nordic,nrf-spi";
-        status = "okay";
-        cs-gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
-        pinctrl-0 = <&spi1_default>;
-        pinctrl-1 = <&spi1_sleep>;
-        pinctrl-names = "default", "sleep";
-        gendev: gendev@0 {
-                compatible = "vnd,spi-device";
-                reg = <0>;
-                spi-max-frequency = <1600000>;
-                label = "GenDev";
-        };
+    status = "okay";
+    compatible = "nordic,nrf-spi";
+
+    /* CS line (example: P0.28 active low) */
+    cs-gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
+
+    /* pinctrl-0 / pinctrl-1 if your board needs it (same as lesson) */
+
+    : mcp4922@0 {
+        compatible = "vnd,spi-device";   /* generic SPI device binding */
+        reg = <0>;                       /* slave select index */
+        spi-max-frequency = <10000000>;  /* MCP4922 supports up to 20 MHz */
+        label = "MCP4922";
+    };
 };
 
